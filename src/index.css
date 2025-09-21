@@ -1,0 +1,16 @@
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap);
+:root {
+    --primary-color: white; /* Netflix red */
+    --bg-color: #111; 
+    --secondary-color:  #e50914; /* Light gray text */
+    --font-base: 'Lexend', sans-serif; /* Modern font */
+    --font-second-base: 'Inter', sans-serif; /* Alternative font */
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background: #111;
+}
