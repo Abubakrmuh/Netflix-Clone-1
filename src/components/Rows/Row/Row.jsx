@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Row.css";
-import axios from "../../../Utils/axios";
+import instance from "../../../Utils/axios";
 import movieTrailer from "movie-trailer";
 import YouTube from "react-youtube";
 
@@ -12,7 +12,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   useEffect(() => {
     (async () => {
       try {
-        const request = await axios.get(fetchUrl);
+        const request = await instance.get(fetchUrl);
         console.log(request);
         setMovies(request.data.results);
       } catch (error) {
@@ -27,8 +27,10 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
     } else {
       movieTrailer(movie?.name || movie?.title || movie?.original_name)
         .then((url) => {
-          const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get("v"));
+          if (url) {
+            const urlParams = new URLSearchParams(new URL(url).search);
+            setTrailerUrl(urlParams.get("v"));
+          }
         })
         .catch((error) => {
           console.log("Error fetching trailer:", error);
@@ -49,15 +51,31 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
       <h2>{title}</h2>
       <div className="row_posters">
         {movies?.map((movie, index) => (
-          <img
-            onClick={() => handleClick(movie)}
-            key={index}
-            src={`${base_url}${
-              isLargeRow ? movie.poster_path : movie.backdrop_path
-            }`}
-            alt={movie.name || movie.title}
-            className={`row_poster ${isLargeRow && "row_posterLarge"}`}
-          />
+          <div key={index} className={`row_poster_container ${isLargeRow && "large"}`}>
+            <img
+              onClick={() => handleClick(movie)}
+              src={`${base_url}${
+                isLargeRow ? movie.poster_path : movie.backdrop_path
+              }`}
+              alt={movie.name || movie.title}
+              className={`row_poster ${isLargeRow && "row_posterLarge"}`}
+              onError={(e) => {
+                e.target.src = 'https://via.placeholder.com/300x450/000000/FFFFFF?text=No+Image';
+                e.target.onerror = null;
+              }}
+            />
+            <div className="row_poster_overlay">
+              <button 
+                className="play_button"
+                onClick={() => handleClick(movie)}
+              >
+                ▶ Play
+              </button>
+            </div>
+            <div className="movie_rating">
+              {movie.adult ? '18+' : movie.vote_average > 7 ? 'PG-13' : 'PG'}
+            </div>
+          </div>
         ))}
       </div>
       <div style={{ padding: "40px" }}>

@@ -1,26 +1,76 @@
-.banner{
+.banner {
     height: 80vh;
     color: white;
     object-fit: contain;
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
-.banner_contents{
+
+.banner_contents {
     margin-left: 30px;
     padding-top: 140px;
     height: 190px;
+    position: relative;
+    z-index: 2;
 }
-.banner_title{
+
+.banner_metadata {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.banner_rating {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #333;
+}
+
+.banner_genres {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.genre_tag {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+}
+
+.banner_title {
     font-size: 3rem;
     font-weight: 800;
     padding-bottom: 0.3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
+
 .banner_description {
     width: 45rem;
-    line-height: 1;
+    line-height: 1.3;
     padding: 1rem 0;
     font-size: 1rem;
     max-width: 360px;
-    height: 80px;   
+    height: 80px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
+
+.banner_buttons {
+    display: flex;
+    gap: 1rem;
+}
+
 .banner_button {
     cursor: pointer;
     color: #fff;
@@ -30,24 +80,149 @@
     font-weight: 700;
     border-radius: 0.2vw;
     padding: 1rem 3rem;
-    margin-right: 2rem;
-    background-color: rgba(51,51,51,0.5);
+    background-color: rgba(51, 51, 51, 0.5);
+    transition: all 0.2s;
 }
-.play{
+
+.banner_button:hover {
+    color: #000;
+    background-color: #e6e6e6;
+    transform: scale(1.05);
+}
+
+.banner_button.play {
     color: #000;
     background-color: #fff;
 }
-.banner_buttons:hover {
-    color: #000;
+
+.banner_button.play:hover {
     background-color: #e6e6e6;
-    transition: all 0.2s;
 }
+
+.banner_controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 3;
+}
+
+.volume_control {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #333;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.volume_control:hover {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: #666;
+}
+
+.banner_trailer {
+    padding: 40px;
+    background: #111;
+    display: flex;
+    justify-content: center;
+}
+
+.trailer_container {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+}
+
+.trailer_close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #e50914;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.trailer_close:hover {
+    background: #f40612;
+    transform: scale(1.1);
+}
+
 .banner_fadeBottom {
     height: 40vh;
     background-image: linear-gradient(
         180deg,
         transparent,
-        rgba(37,37,37,0.91),
+        rgba(37, 37, 37, 0.91),
         #111
     );
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .banner_contents {
+        margin-left: 15px;
+        padding-top: 100px;
+    }
+    
+    .banner_title {
+        font-size: 2rem;
+    }
+    
+    .banner_description {
+        width: 100%;
+        max-width: 300px;
+        font-size: 0.9rem;
+    }
+    
+    .banner_button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner_contents {
+        margin-left: 10px;
+        padding-top: 80px;
+    }
+    
+    .banner_title {
+        font-size: 1.5rem;
+    }
+    
+    .banner_description {
+        max-width: 250px;
+        font-size: 0.8rem;
+    }
+    
+    .banner_buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .banner_button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
 }   
